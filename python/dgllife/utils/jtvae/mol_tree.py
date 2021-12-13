@@ -39,7 +39,7 @@ class MolTree(object):
             self.smiles3D = None
             self.smiles2D = None
             self.stereo_cands = []
-            self.graph = dgl.graph(([], []), idtype=torch.int32)
+            self.graph = dgl.graph(([], []), idtype=torch.int64)
             return
 
         self.smiles3D = Chem.MolToSmiles(mol, isomericSmiles=True)
@@ -88,7 +88,7 @@ class MolTree(object):
             src[2 * i + 1] = y
             dst[2 * i + 1] = x
 
-        self.graph = dgl.graph((src, dst), num_nodes=len(cliques), idtype=torch.int32)
+        self.graph = dgl.graph((src, dst), num_nodes=len(cliques), idtype=torch.int64)
 
         for i in self.nodes_dict:
             self.nodes_dict[i]['nid'] = i + 1
